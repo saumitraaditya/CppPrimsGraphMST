@@ -1,0 +1,30 @@
+1. http://mrbook.org/blog/tutorials/make/
+2. https://owen.sj.ca.us/~rk/howto/slides/make/slides/makerecurs.html
+3. http://stackoverflow.com/questions/2852907/problem-finding-a-header-with-a-c-makefile
+4. https://www.gnu.org/software/make/manual/html_node/Text-Functions.html
+5. http://stackoverflow.com/questions/14639794/getting-make-to-create-object-files-in-a-specific-directory
+6. http://stackoverflow.com/questions/16467718/how-to-print-out-a-variable-in-makefile
+
+In Makefiles new ccommands begin with a hard tab. Gedit inserts by default spaces in place of a tab
+
+makefile has a very stupid relation with tabs , all actions of every rule are identified by tabs ...... and No 4 spaces dont make a tab , only a tab makes a tab...
+
+to check i use the command cat -e -t -v  makefile_name
+
+it shows the presence of tabs with ^I and line endings with $ both are vital to ensure that dependencies end properly and tabs mark the action for the rules so that they are easily identifiable to the make utility.....
+
+example :
+
+Kaizen ~/so_test $ cat -e -t -v  mk.t
+all:ll$      ## here the $ is end of line ...                   
+$
+ll:ll.c   $
+^Igcc  -c  -Wall -Werror -02 c.c ll.c  -o  ll  $@  $<$ 
+## the ^I above means a tab was there before the action part, so this lines ok .
+ $
+clean :$
+   \rm -fr ll$
+## see here there is no ^I which means , tab is not present .... 
+## in this case you need to open the file again and edit/ensure a tab 
+## starts the action part
+hope this helps !!
